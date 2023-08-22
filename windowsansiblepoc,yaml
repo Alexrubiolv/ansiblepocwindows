@@ -1,0 +1,40 @@
+---
+- name: Configure Windows Server
+  hosts: 20.224.42.175
+  become: yes
+  gather_facts: no  # Windows doesn't support gathering facts by default
+
+  tasks:
+    - name: Update system using Windows Update
+      win_updates:
+        category_names: SecurityUpdates
+        state: installed
+      tags:
+        - update
+
+    - name: Install Git for Windows
+      win_chocolatey:
+        name: git
+        state: present
+      tags:
+        - install
+
+    - name: Install Chocolatey package manager
+      win_shell: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+      args:
+        executable: powershell.exe
+        creates: C:\ProgramData\chocolatey\bin\choco.exe
+      tags:
+        - install
+
+    - name: Install required libraries using Chocolatey
+      win_chocolatey:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - openssl
+          - libffi
+      tags:
+        - install
