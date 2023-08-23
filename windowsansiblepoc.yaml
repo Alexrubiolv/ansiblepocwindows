@@ -1,6 +1,6 @@
 ---
 - name: Run Hello World command on Windows
-  hosts: windows_servers
+  hosts: 4.231.114.250
   tasks:
     - name: Say Hello
       win_shell: echo "Hello, World!"
