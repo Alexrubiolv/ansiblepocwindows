@@ -1,6 +1,6 @@
 ---
 - name: Simple Ansible Playbook for Windows
-  hosts: 4.231.114.250
+  hosts: 10.0.0.5
   gather_facts: false
   tasks:
     - name: Run a command on Windows
