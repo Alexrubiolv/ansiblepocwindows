@@ -1,14 +1,8 @@
 ---
 - name: Simple Ansible Playbook for Windows
-  hosts: 10.0.0.5
+  hosts: all
+  become: false
   gather_facts: false
   tasks:
-    - name: Run a command on Windows
-      win_shell: |
-        # Replace this with the actual command you want to run
-        Write-Host "Hello from Ansible on Windows!"
-      register: command_output
-
-    - name: Display command output
-      debug:
-        var: command_output.stdout_lines
+    - name: pingtest
+      win_ping:
