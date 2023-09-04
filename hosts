@@ -1,3 +1,0 @@
-[web_servers]
-ansible_host=10.0.0.5 ansible_user=azurepoc ansible_ssh_pass=Setembro01@@
-
